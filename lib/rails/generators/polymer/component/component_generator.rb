@@ -1,3 +1,4 @@
+require 'polymer/metadata'
 require 'rails/generators/polymer/actions'
 
 module Polymer
@@ -19,15 +20,12 @@ module Polymer
       def initialize(*args)
         super
 
+        validate_attributes!
+
         rails_options = ::Rails::Generators.options[:rails]
         @js_engine = rails_options[:javascript_engine] || :js
         @css_engine = rails_options[:stylesheet_engine] || :css
         @tpl_engine = rails_options[:template_engine] || :erb
-
-        attributes.each do |attribute|
-          attribute.name = canonical_property_name(attribute.name)
-          attribute.type = canonical_property_type(attribute.type)
-        end
 
         @component_root = ::Rails.application.config.polymer.component_root
         @tag_name = "#{options[:tag_prefix]}-#{name.underscore.dasherize}"
@@ -49,6 +47,31 @@ module Polymer
 
       protected
 
+      def validate_attributes!
+        bad_attributes = []
+        attributes.each do |attribute|
+          attribute.name = canonical_property_name(attribute.name)
+          attribute.type = canonical_property_type(attribute.type)
+
+          if Polymer::Metadata.reserved_name? attribute.name
+            bad_attributes << attribute
+            next
+          end
+        end
+
+        unless bad_attributes.empty?
+          attribute_names = bad_attributes.map { |a| "'#{a.name}'" }.to_sentence
+          message = if bad_attributes.size == 1
+            "The property name #{attribute_names} is reserved!"
+          else
+            "The property names #{attribute_names} are reserved!"
+          end
+
+          say message, :red
+          abort
+        end
+      end
+
       def canonical_property_name(name)
         name.underscore.camelize(:lower)
       end
@@ -68,11 +91,10 @@ module Polymer
         when :number  then '0'
         when :string  then "''"
         when :boolean then 'false'
-        when :date    then 'new Date(0)'
-        # TODO(imac): Is {value: *} still necessary?
-        when :object  then '{value: {}}'
-        when :array   then '{value: []}'
-        # TODO(imac): Is string the right default?
+        # TODO(imac): Polymer bug, or just not supported?
+        # when :date    then 'new Date(0)'
+        when :object  then '{}'
+        when :array   then '[]'
         else "''"
         end
       end
