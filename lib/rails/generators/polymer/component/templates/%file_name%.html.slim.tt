@@ -3,6 +3,5 @@ polymer-element name="<%= @tag_name %>"
   template
     link href="<%= file_name %>.css" rel="stylesheet"
 
-  javascript:
-    Polymer('<%= @tag_name %>', {
-    });
+  <%= @js_engine == :js ? 'javascript' : @js_engine %>:
+<%= script_source.indent(4).rstrip %>

@@ -1,0 +1,2 @@
+Polymer('<%= @tag_name %>', {
+});
