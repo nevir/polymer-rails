@@ -1,4 +1,4 @@
-<polymer-element name="<%= @tag_name %>">
+<polymer-element name="<%= @tag_name %>"<% if options[:constructor] %> constructor="<%= constructor_name %>"<% end %>>
 
   <template>
     <% if options[:inline_stylesheet] %><style>

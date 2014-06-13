@@ -12,6 +12,7 @@ module Polymer
       # These options inherit the defaults specified in Polymer::Rails::Railtie.
       class_option :tag_prefix,        type: :string
       class_option :inline_stylesheet, type: :boolean
+      class_option :constructor,       type: :boolean
 
       argument(:attributes,
         type: :array, default: [], banner: 'prop:type prop:type'
@@ -97,6 +98,10 @@ module Polymer
         when :array   then '[]'
         else "''"
         end
+      end
+
+      def constructor_name
+        @tag_name.underscore.camelize
       end
 
       def script_source(script_type = @js_engine)

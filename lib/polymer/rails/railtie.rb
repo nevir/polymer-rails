@@ -20,6 +20,9 @@ class Polymer::Rails::Railtie < ::Rails::Engine
       # Whether stylesheets should be inlined directly into generated
       # components.
       inline_stylesheet: false,
+
+      # Whether a constructor name should be specified for generated components.
+      constructor: true,
     )
   end
 end
