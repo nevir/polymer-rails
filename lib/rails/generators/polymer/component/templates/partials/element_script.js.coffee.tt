@@ -1,2 +1,8 @@
-Polymer '<%= @tag_name %>',
-  publish: {}
+Polymer '<%= @tag_name %>'<% unless attributes.empty? %>,
+  publish: <% attributes.each do |attribute| %>
+    # TODO: Document attribute!
+    #
+    # @attribute <%= attribute.name %>
+    # @type <%= attribute.type %>
+    <%= attribute.name %>: <%= default_property_value(attribute) %>
+<% end %><% end %>
