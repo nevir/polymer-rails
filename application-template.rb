@@ -79,6 +79,14 @@ remove_line 'app/assets/manifests/application.js', '//= require turbolinks'
 gem 'polymer-rails', git: 'https://github.com/nevir/polymer-rails'
 gem 'sprockets-htmlimports', git: 'https://github.com/nevir/sprockets-htmlimports'
 
+# .gitconfig
+# ----------
+
+append_to_file '.gitconfig', <<-end_content
+# Don't bundle bower components with the source
+/vendor/assets/components/
+end_content
+
 # config/initializers/polymer.rb
 # ------------------------------
 
