@@ -8,8 +8,12 @@ module Polymer
       source_root File.expand_path('../templates', __FILE__)
       remove_class_option :skip_namespace
 
+      # These options inherit the defaults specified in Polymer::Rails::Railtie.
+      class_option :tag_prefix,        type: :string
+      class_option :inline_stylesheet, type: :boolean
+
       argument(:attributes,
-        type: :array, default: [], banner: 'attr:type attr:type'
+        type: :array, default: [], banner: 'prop:type prop:type'
       )
 
       def initialize(*args)
@@ -25,14 +29,15 @@ module Polymer
           attribute.type = canonical_property_type(attribute.type)
         end
 
-        global_config = ::Rails.application.config.polymer
-        @component_root = global_config.component_root
-        @tag_name = "#{global_config.tag_prefix}-#{name.underscore.dasherize}"
+        @component_root = ::Rails.application.config.polymer.component_root
+        @tag_name = "#{options[:tag_prefix]}-#{name.underscore.dasherize}"
       end
 
       def create_component_files
         component_template '%file_name%.html', @tpl_engine
-        component_template '%file_name%.css', @css_engine
+        unless options[:inline_stylesheet]
+          component_template '%file_name%.css', @css_engine
+        end
       end
 
       # TODO(imac): Remove this in favor of require_tree support.
@@ -73,11 +78,17 @@ module Polymer
       end
 
       def script_source(script_type = @js_engine)
-        ext = @js_engine == :js ? '.js' : ".js.#{@js_engine}"
+        ext = script_type == :js ? '.js' : ".js.#{script_type}"
 
         render_template(find_in_source_paths(
           File.join('partials', "element_script#{ext}")
         ))
+      end
+
+      def style_source(style_type = @css_engine)
+        ext = style_type == :css ? '.css' : ".css.#{style_type}"
+
+        render_template(find_in_source_paths("%file_name%#{ext}"))
       end
 
       def component_template(source_path, ext)

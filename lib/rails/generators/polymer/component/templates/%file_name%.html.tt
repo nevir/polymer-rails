@@ -1,12 +1,13 @@
 <polymer-element name="<%= @tag_name %>">
 
   <template>
-    <link href="<%= file_name %>.css" rel="stylesheet">
+    <% if options[:inline_stylesheet] %><style>
+<%= style_source(:css).strip.indent(6) %>
+    <style><% else %><link href="<%= file_name %>.css" rel="stylesheet"><% end %>
   </template>
 
   <script>
-    Polymer('<%= @tag_name %>', {
-    });
+<%= script_source(:js).indent(4).rstrip %>
   </script>
 
 </polymer-element>

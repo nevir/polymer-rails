@@ -1,8 +1,6 @@
 Polymer('<%= @tag_name %>', {
 <% unless attributes.empty? %>  publish: {<% attributes.each_with_index do |attribute, i| %>
     /**
-     * TODO: Document attribute!
-     *
      * @attribute <%= attribute.name %>
      * @type <%= attribute.type %>
      */

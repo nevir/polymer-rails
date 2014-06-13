@@ -79,10 +79,20 @@ remove_line 'app/assets/manifests/application.js', '//= require turbolinks'
 gem 'polymer-rails', git: 'https://github.com/nevir/polymer-rails'
 gem 'sprockets-htmlimports', git: 'https://github.com/nevir/sprockets-htmlimports'
 
-# config/application.rb
-# ---------------------
+# config/initializers/polymer.rb
+# ------------------------------
 
-application "config.polymer.tag_prefix = #{app_name.inspect}"
+initializer 'polymer.rb', <<-end_file
+Rails.application.config.generators.polymer = {
+  # Specify a short prefix to be used for all of your generated components. This
+  # serves as a namespace for them.
+  tag_prefix: '#{app_name.underscore.dasherize}',
+
+  # Whether components should be generated with stylesheets inlined into their
+  # html source file.
+  # inline_stylesheet: true,
+}
+end_file
 
 # app/assets/manifests/application.html
 # --------------------------------------
