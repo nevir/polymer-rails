@@ -13,7 +13,7 @@ module Polymer
         @tag_name = "#{global_config.tag_prefix}-#{name.underscore.dasherize}"
       end
 
-      # TODO: Generate proper stylesheet based on stylesheet generator.
+      # TODO(imac): Generate proper stylesheet based on stylesheet generator.
       def create_component_files
         options = ::Rails::Generators.options[:rails]
 
@@ -21,7 +21,7 @@ module Polymer
         component_template '%file_name%.css', options[:template_engine]
       end
 
-      # TODO: Remove this in favor of require_tree support.
+      # TODO(imac): Remove this in favor of require_tree support.
       def import_globally
         append_to_file 'app/assets/components/application.html', <<-end_content
 <link href="#{file_name}/#{file_name}.html" rel="import">

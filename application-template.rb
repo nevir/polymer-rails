@@ -1,5 +1,5 @@
-# TODO: Document!
-# TODO: Move to a generator that works on existing projects too.
+# TODO(imac): Document!
+# TODO(imac): Move to a generator that works on existing projects too.
 require 'json'
 
 
@@ -7,7 +7,7 @@ require 'json'
 # ==============
 
 bower_dependencies = {
-  # TODO: Support multiple polymer versions!
+  # TODO(imac): Support multiple polymer versions!
   "platform" => "Polymer/platform#master",
   "polymer" => "Polymer/polymer#master",
 }
@@ -23,7 +23,7 @@ end
 
 # Undo Defaults
 # =============
-# TODO: Is there a way to just toggle settings ahead of time?
+# TODO(imac): Is there a way to just toggle settings ahead of time?
 
 remove_line 'app/assets/javascripts/application.js', '//= require jquery'
 remove_line 'app/assets/javascripts/application.js', '//= require jquery_ujs'
@@ -82,9 +82,9 @@ bower_dependencies['core-scaffold'] = 'Polymer/core-scaffold#master'
 file 'app/views/static/welcome.html', <<-end_file
 <core-scaffold>
   <nav>
-    TODO: Navigation!
+    TODO(imac): Navigation!
   </nav>
-  TODO: Content!
+  TODO(imac): Content!
 </core-scaffold>
 end_file
 
