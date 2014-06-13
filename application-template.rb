@@ -33,8 +33,8 @@ remove_line 'app/assets/javascripts/application.js', '//= require turbolinks'
 # polymer-rails
 # =============
 
-gem 'polymer-rails', path: '../polymer-rails'
-gem 'sprockets-htmlimports', path: '../sprockets-htmlimports'
+gem 'polymer-rails', git: 'https://github.com/nevir/polymer-rails'
+gem 'sprockets-htmlimports', git: 'https://github.com/nevir/sprockets-htmlimports'
 
 # config/application.rb
 # ---------------------
