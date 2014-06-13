@@ -18,7 +18,7 @@ module Polymer
         options = ::Rails::Generators.options[:rails]
 
         component_template '%file_name%.html', options[:template_engine]
-        component_template '%file_name%.css', options[:template_engine]
+        component_template '%file_name%.css', options[:stylesheet_engine]
       end
 
       # TODO(imac): Remove this in favor of require_tree support.
