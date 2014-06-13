@@ -1,8 +1,8 @@
-polymer-element name="<%= @tag_name %>"<% if options[:constructor] %> constructor="<%= constructor_name %>"<% end %>
+polymer-element[name="<%= @tag_name %>"<% if options[:constructor] %> constructor="<%= constructor_name %>"<% end %>]
 
   template
     <% if options[:inline_stylesheet] %><%= @css_engine %>:
-<%= style_source.lstrip.indent(6) %><% else %>link href="<%= file_name %>.css" rel="stylesheet"
+<%= style_source.lstrip.indent(6) %><% else %>link[href="<%= file_name %>.css" rel="stylesheet"]
 <% end -%>
 
   <%= @js_engine == :js ? 'javascript' : @js_engine %>:
