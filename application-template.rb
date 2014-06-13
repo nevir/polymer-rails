@@ -1,6 +1,8 @@
 # TODO(imac): Document!
 # TODO(imac): Move to a generator that works on existing projects too.
+require 'fileutils'
 require 'json'
+require 'pathname'
 
 
 # Bower Packages
@@ -20,14 +22,55 @@ def remove_line(file, line)
   gsub_file file, "#{line}\n", ''
 end
 
+def move_file(source, dest)
+  say_status 'move', "#{source} > #{dest}", :green
+
+  full_source = File.join(destination_root, source)
+  full_dest = File.join(destination_root, dest)
+  FileUtils.mkpath(File.dirname(full_dest))
+  FileUtils.mv(full_source, full_dest)
+end
+
+def keep_dir(dir)
+  full_dir = File.join(destination_root, dir)
+  return unless (Dir.entries(full_dir) - %w{. ..}).empty?
+  FileUtils.touch(File.join(full_dir, '.keep'))
+end
+
+
+# Reorganize Assets
+# =================
+
+assets_root = Pathname.new(File.join('app', 'assets'))
+manifests_root = assets_root.join('manifests')
+
+move_file(
+  assets_root.join('javascripts', 'application.js'),
+  manifests_root.join('application.js')
+)
+move_file(
+  assets_root.join('stylesheets', 'application.css'),
+  manifests_root.join('application.css')
+)
+
+keep_dir assets_root.join('javascripts')
+keep_dir assets_root.join('stylesheets')
+
+gsub_file 'app/assets/manifests/application.js', '//= require_tree .' do
+  '//= require_tree ../javascripts'
+end
+gsub_file 'app/assets/manifests/application.css', '*= require_tree .' do
+  '//= require_tree ../stylesheets'
+end
+
 
 # Undo Defaults
 # =============
 # TODO(imac): Is there a way to just toggle settings ahead of time?
 
-remove_line 'app/assets/javascripts/application.js', '//= require jquery'
-remove_line 'app/assets/javascripts/application.js', '//= require jquery_ujs'
-remove_line 'app/assets/javascripts/application.js', '//= require turbolinks'
+remove_line 'app/assets/manifests/application.js', '//= require jquery'
+remove_line 'app/assets/manifests/application.js', '//= require jquery_ujs'
+remove_line 'app/assets/manifests/application.js', '//= require turbolinks'
 
 
 # polymer-rails
@@ -41,10 +84,10 @@ gem 'sprockets-htmlimports', git: 'https://github.com/nevir/sprockets-htmlimport
 
 application "config.polymer.tag_prefix = #{app_name.inspect}"
 
-# app/assets/components/application.html
+# app/assets/manifests/application.html
 # --------------------------------------
 
-file 'app/assets/components/application.html', <<-end_file
+file 'app/assets/manifests/application.html', <<-end_file
 <!--
 This is a manifest file that'll be compiled into application.html, which will
 include all the files imported below.
@@ -52,10 +95,10 @@ include all the files imported below.
 <link href="polymer/polymer.html" rel="import">
 end_file
 
-# app/assets/javascripts/application.js
+# app/assets/manifests/application.js
 # -------------------------------------
 
-insert_into_file 'app/assets/javascripts/application.js', before: '//= require_tree .' do
+insert_into_file 'app/assets/manifests/application.js', before: '//= require_tree .' do
   "//= require platform/platform\n"
 end
 
@@ -88,7 +131,7 @@ file 'app/views/static/welcome.html', <<-end_file
 </core-scaffold>
 end_file
 
-append_to_file 'app/assets/components/application.html', <<-end_content
+append_to_file 'app/assets/manifests/application.html', <<-end_content
 <link href="core-scaffold/core-scaffold.html" rel="import">
 end_content
 

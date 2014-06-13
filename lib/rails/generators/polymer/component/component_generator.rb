@@ -23,7 +23,7 @@ module Polymer
 
       # TODO(imac): Remove this in favor of require_tree support.
       def import_globally
-        append_to_file 'app/assets/components/application.html', <<-end_content
+        append_to_file 'app/assets/manifests/application.html', <<-end_content
 <link href="#{file_name}/#{file_name}.html" rel="import">
         end_content
       end
