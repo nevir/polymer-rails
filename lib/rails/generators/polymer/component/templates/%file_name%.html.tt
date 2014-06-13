@@ -1,0 +1,12 @@
+<polymer-element name="<%= @tag_name %>">
+
+  <template>
+    <link href="<%= file_name %>.css" rel="stylesheet">
+  </template>
+
+  <script>
+    Polymer('<%= @tag_name %>', {
+    });
+  </script>
+
+</polymer-element>
