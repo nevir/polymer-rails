@@ -1,5 +1,3 @@
-TODO(imac): Explain it.
-
 New Rails Projects
 ==================
 
@@ -13,3 +11,11 @@ Generators
 ```
 rails g polymer:component NAME
 ```
+
+TODO(imac):
+===========
+
+* Fill out this README
+  * Describe project organization changes.
+  * Describe generators.
+* `rails g polymer:init` for existing projects.
