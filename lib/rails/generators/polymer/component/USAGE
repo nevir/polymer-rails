@@ -1,10 +1,8 @@
-TODO(imac): Fill in!
-
 Description:
-    Explain the generator
+    Generates a Polymer component for your project.
 
 Example:
-    rails generate component Thing
+    rails generate polymer:component Thing foo:string bar:object
 
-    This will create:
-        what/will/it/create
+    This will create app/components/thing/thing.html, and any associated
+    resources.

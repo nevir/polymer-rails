@@ -6,4 +6,7 @@ Rails.application.config.generators.polymer = {
   # Whether components should be generated with stylesheets inlined into their
   # html source file.
   # inline_stylesheet: true,
+
+  # Whether a constructor name should be specified for generated components.
+  # constructor: false,
 }

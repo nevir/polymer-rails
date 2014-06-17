@@ -1,10 +1,10 @@
-TODO(imac): Fill in!
-
 Description:
-    Explain the generator
+    Initializes your Rails project to make use of polymer-rails.
 
 Example:
-    rails generate component Thing
+    rails generate polymer:init
 
-    This will create:
-        what/will/it/create
+    Or, if you want to be brave and let polymer-rails reorganize and clean up
+    your assets, try:
+
+    rails generate polymer:init --combine-manifests --no-default-js --no-turbolinks
