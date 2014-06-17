@@ -22,7 +22,7 @@ class Polymer::Rails::Railtie < ::Rails::Engine
       inline_stylesheet: false,
 
       # Whether a constructor name should be specified for generated components.
-      constructor: true,
+      constructor: false,
     )
   end
 end
