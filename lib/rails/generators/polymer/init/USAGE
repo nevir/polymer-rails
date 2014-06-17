@@ -1,0 +1,10 @@
+TODO(imac): Fill in!
+
+Description:
+    Explain the generator
+
+Example:
+    rails generate component Thing
+
+    This will create:
+        what/will/it/create

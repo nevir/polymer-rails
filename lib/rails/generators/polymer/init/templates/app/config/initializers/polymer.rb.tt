@@ -1,0 +1,9 @@
+Rails.application.config.generators.polymer = {
+  # Specify a short prefix to be used for all of your generated components. This
+  # serves as a namespace for them.
+  tag_prefix: '<%= app_name.underscore.dasherize %>',
+
+  # Whether components should be generated with stylesheets inlined into their
+  # html source file.
+  # inline_stylesheet: true,
+}
