@@ -1,7 +1,8 @@
 polymer-rails
 =============
 
-Make your Rails projects sing with [Polymer](http://polymer-project.org)!
+Make your Rails projects sing with [Polymer](http://polymer-project.org) and
+[sprockets-htmlimports](https://github.com/nevir/sprockets-htmlimports)!
 
 Please note that `polymer-rails` is very much an **alpha** project at this
 point. You'll be living on the bleeding edge; pulling gems directly from

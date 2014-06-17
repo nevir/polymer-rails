@@ -113,6 +113,15 @@ module Polymer
         end_content
       end
 
+      def compress_html
+        prod_config_path = File.join('config', 'environments', 'production.rb')
+        content = "  config.assets.html_compressor = :simple\n"
+
+        insert_into_file(
+          prod_config_path, content, after: /assets\.css_compressor.*\n/
+        )
+      end
+
       # App Scaffold
 
       def app_scaffold
