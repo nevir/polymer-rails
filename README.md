@@ -26,10 +26,6 @@ Add `polymer-rails` (and _bleeding edge dependencies_) to your `Gemfile`:
 
     gem 'polymer-rails', git: 'https://github.com/nevir/polymer-rails'
     gem 'sprockets-htmlimports', git: 'https://github.com/nevir/sprockets-htmlimports'
-    gem 'ruby-gumbo', git: 'https://github.com/nevir/ruby-gumbo'
-
-_You may need to run `bundle` more than once; the `ruby-gumbo` installer is a
-bit flaky._
 
 Then initialize it via:
 
