@@ -1,3 +1,19 @@
+**THIS PROJECT DOES NOT WORK YET**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 polymer-rails
 =============
 
